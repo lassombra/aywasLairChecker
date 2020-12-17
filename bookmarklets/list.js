@@ -1,5 +1,5 @@
 var process = function () {
-    var page = 1, petsTable = [], resultsTable = {}, userID, version = 0.7, phoneHome = false, remoteVersion,
+    var page = 1, petsTable = [], resultsTable = {}, userID, version = 0.6, phoneHome = false, remoteVersion,
         versionCheckComplete = false, versionAnswer;
 
     function versionCheck() {
@@ -82,7 +82,7 @@ var process = function () {
             page = page + 1;
             if (pageResult.length) {
                 fetchPage();}
-            xml = xml.replace(/<[^\/]*img[^>]*>([^<]*<[^\/\w]*\/img[^>]*>)*/gi, "");
+            xml = xml.replace(/<[^\/<>]*img[^>]*>([^<]*<[^\/\w]*\/img[^>]*>)*/gi, "");
             pageResult = $(xml).find('div#lair-sort-pets > div');
             for (i = 0; i < pageResult.length; i += 1) {
                 petsTable.push(pageResult[i]);

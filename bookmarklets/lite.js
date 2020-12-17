@@ -1,5 +1,5 @@
 var process = function () {
-    var page = 1, petsTable = [], resultsTable = {}, userID, version = "0.11", phoneHome = false, remoteVersion,
+    var page = 1, petsTable = [], resultsTable = {}, userID, version = "0.12", phoneHome = false, remoteVersion,
         versionCheckComplete = false, versionAnswer;
 
     function versionCheck() {
@@ -104,7 +104,7 @@ var process = function () {
         $('title').text("Aywas Lair Checker: Loading page " + page + ".  Pets loaded so far: " + petsTable.length);
         var listUrl = "http://www.aywas.com/lair/group/" + userID + "/all/?p=" + page + "&l=240", pageResult = [], i;
         $.ajax(listUrl, {dataType: "text", success: function (xml) {
-            xml = xml.replace(/<[^\/]*img[^>]*>([^<]*<[^\/\w]*\/img[^>]*>)*/gi, "");
+            xml = xml.replace(/<[^\/<>]*img[^>]*>([^<]*<[^\/\w]*\/img[^>]*>)*/gi, "");
             pageResult = $(xml).find('div#lair-sort-pets > div');
             for (i = 0; i < pageResult.length; i += 1) {
                 petsTable.push(pageResult[i]);
