@@ -1,5 +1,5 @@
 var process = function () {
-    var page = 1, petsTable = [], resultsTable = {}, userID, version = 0.6, phoneHome = false, remoteVersion,
+    var page = 1, petsTable = [], resultsTable = {}, userID, version = 0.12, phoneHome = false, remoteVersion,
         versionCheckComplete = false, versionAnswer;
 
     function versionCheck() {
@@ -10,9 +10,6 @@ var process = function () {
         if (!versionCheckComplete) {
             window.setTimeout(generateOutput, 100);
             return;
-        }
-        if (phoneHome) {
-            $.get("http://aywaslairchecker.net/checkin.php", {id: userID, version: version, lite: true});
         }
         var count = 0;
         for (c in resultsTable){
@@ -56,7 +53,7 @@ var process = function () {
         breed = $(element).find(".gen-small > a > strong").text().split(' the ');
         breed = breed[breed.length - 1];
         breed = breed.trim().split('(')[0].trim().replace(/^\s*\S*(Male|Female|Androgynous|Hermaphrodite|Undecided|Robot)/i, "").trim();
-        id = Number($(element).find(".gen-small > a > strong").text().split('(')[1].match(/\d+/ig)[0]);
+        id = Number($(element).find(".gen-small > a > strong").text().split('(').slice(-1)[0].match(/\d+/ig)[0]);
         name = $(element).find(".gen-small > a > strong").text();
             if (!resultsTable[breed]) {
                 resultsTable[breed] = [];
@@ -80,10 +77,10 @@ var process = function () {
         $.ajax(listUrl, {dataType: "text", success: function (xml) {
             pagesRunning += 1;
             page = page + 1;
-            if (pageResult.length) {
-                fetchPage();}
             xml = xml.replace(/<[^\/<>]*img[^>]*>([^<]*<[^\/\w]*\/img[^>]*>)*/gi, "");
             pageResult = $(xml).find('div#lair-sort-pets > div');
+                if (pageResult.length) {
+                    fetchPage();}
             for (i = 0; i < pageResult.length; i += 1) {
                 petsTable.push(pageResult[i]);
             }

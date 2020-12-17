@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         bookmarklet_wrapper: {
             options: {
                 // Task-specific options go here.
-                asJson: true
+                asJson: false
             },
             lite: {
                 files: {
