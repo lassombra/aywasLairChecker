@@ -4,7 +4,7 @@
   "description": "A lair checker for Aywas",
   "main": "index.js",
   "dependencies": {
-    "grunt": "^1.0.1"
+    "grunt": "^1.5.2"
   },
   "devDependencies": {
     "grunt": "git://github.com/gruntjs/grunt.git#8ada494",
